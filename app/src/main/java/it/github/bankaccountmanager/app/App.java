@@ -44,7 +44,7 @@ public class App {
 
     Scanner keyboard = new Scanner(System.in);
 
-    Formatdate();
+    FormatDate();
 
     try {
 
@@ -99,6 +99,7 @@ public class App {
     System.out.println("Premere 5 per visualizzare i propri dati anagrafici.");
     System.out.println("Premere 0 per terminare la procedura");
   }
+
   public static boolean saluto() {
     Scanner keyboard = new Scanner(System.in);
     System.out.println();
@@ -123,7 +124,7 @@ public class App {
     System.out.println();
   }
 
-  public static void Formatdate() {
+  public static void FormatDate() {
 
     System.out.println("Good morning, welcome to the UniBanca banking system!");
 
@@ -135,45 +136,6 @@ public class App {
     String FormattedDate = dateFormat.getCurrentDate();
     System.out.println("Current Date: " + FormattedDate);
   }
-
-
-
-
-
-  /*
-
-
-  public static void Formatdate() {
-    System.out.println("Buongiorno, benvenuto nel sistema bancario UniBanca!");
-
-
-    // creo l'oggetto che mi consente di creare l'orario in time live
-    LocalTime orarioCorrente = LocalTime.now();
-
-    // creo l'oggetto che mi consente di formattare l'orario in time live
-    Date currentDate = new Date();
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-    String orarioFormattato = orarioCorrente.format(formatter);
-
-    //System.out.println("Orario Corrente: " + orarioCorrente); //  stampo anche i millisecondi
-    System.out.println("Orario Corrente: " + orarioFormattato); //  non stampo i millisecondi
-
-    // Crea un formato per la data desiderata
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-    // Formatta la data in una stringa
-    String formattedDate = dateFormat.format(currentDate);
-
-    // Stampala
-    System.out.println("Data corrente: " + formattedDate);
-  }
-*/
-
-
-
-
-
 
   public static int dateAnagrafe(int indice) {
     System.out.println("Nome: " + numclienti[indice].getNome());

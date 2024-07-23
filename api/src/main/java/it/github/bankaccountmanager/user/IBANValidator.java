@@ -22,46 +22,14 @@
  * SOFTWARE.
  */
 
-package it.github.bankaccountmanager.utilities.Time;
+package it.github.bankaccountmanager.user;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-/** this responsibility of this class is to format the current time in the format HH:mm:ss. */
-
-/**
- * @autor Giuseppe Calabrese
- * @lastModified 25-01-2024 - implementation methods.
- */
-
-public class SimpleDateFormatImpl implements DateFormat {
-
-
+public interface IBANValidator {
   /**
-   * Returns the current time in the format HH:mm:ss.
+   * Validates the IBAN code.
    *
-   * @return the current time.
+   * @param IBAN the IBAN code to be validated.
+   * @throws InvalidIBANException if the IBAN code is invalid.
    */
-  @Override
-  public String getCurrentTime() {
-    LocalTime CurrentTime = LocalTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    return CurrentTime.format(formatter);
-  }
-
-
-  /**
-   * Returns the current date in the format dd/MM/yyyy.
-   *
-   * @return the current date.
-   */
-  @Override
-  public String getCurrentDate() {
-    Date currentdate = new Date();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    return dateFormat.format(currentdate);
-
-  }
+  void validateIBAN(String IBAN) throws InvalidIBANException;
 }

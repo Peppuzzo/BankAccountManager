@@ -24,6 +24,11 @@
 
 package it.github.bankaccountmanager.utilities.Time;
 
+/**
+ * @autor Giuseppe Calabrese
+ * @lastModified 25-01-2024 - created method and string for interface.
+ */
+
 public interface DateFormat {
   /**
    * Returns the current time in the format HH:mm:ss.

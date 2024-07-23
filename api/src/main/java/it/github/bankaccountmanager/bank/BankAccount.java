@@ -28,6 +28,7 @@ import it.github.bankaccountmanager.user.Client;
 
 /**
  * @author Giuseppe Calabrese
+ * @lastModified 25-01-2024 - Code fixing.
  */
 
 public class BankAccount {
@@ -36,43 +37,46 @@ public class BankAccount {
   private int prelievo;
   private double saldomassimo;
 
+  /**
+   * @param saldo the initial balance of the account
+   * @param proprietario the owner of the account
+   * @param contoMax the maximum balance of the account
+   * @throws Exception if the initial balance is negative
+   *
+   * The initial balance of the account. Must be a positive number.
+   */
   public BankAccount(double saldo, Client proprietario, double contoMax) throws Exception {
     if(saldo >= 0)  this.saldo = saldo;
     else {
       System.out.println();
-      throw new Exception("Non è possibile creare conti correnti con saldo negativo!" + "\n"
-        + "\n" + "Fare molta attenzione!"  + "\n" + "\n" + "Il saldo errato è il seguente: "
+      throw new Exception("It is not possible to create current accounts with a negative balance!" + "\n"
+        + "\n" + "Be very careful"  + "\n" + "\n" + "The incorrect balance is as follows: "
         + saldo);
     }
-    if(saldomassimo < 0) throw new Exception("Impossiible impostare il saldo più alto negativo!");
+
+    if (saldomassimo < 0) throw new Exception("Unable to set highest negative balance!");
     this.saldomassimo = contoMax;
   }
 
-  public double get_saldo() {
-    return saldo;
-  }
-  public int set_deposita(int deposita) {
-    return this.deposita = deposita;
-  }
+  public double get_saldo() { return saldo; }
+
+  public int set_deposita(int deposita) { return this.deposita = deposita; }
+
   public int depositoTOT() {
     deposita = (int) (deposita + saldo);
     saldo = deposita;
     return deposita;
   }
-  public int set_prelievo(int prelievo) {
-    return this.prelievo = prelievo;
-  }
+
+  public int set_prelievo(int prelievo) { return this.prelievo = prelievo; }
 
   public int prelievo_Aggiornato() {
     int sottrazione = (int) saldo - prelievo;
     saldo = sottrazione;
     return (int) saldo;
   }
-  public void setSaldoMax(double max) {
-    saldomassimo = max;
-  }
-  public double get_saldo_massimo() {
-    return saldomassimo;
-  }
+
+  public double get_saldo_massimo() { return saldomassimo; }
+
 }
 

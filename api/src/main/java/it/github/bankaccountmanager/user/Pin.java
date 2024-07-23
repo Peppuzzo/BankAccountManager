@@ -22,46 +22,14 @@
  * SOFTWARE.
  */
 
-package it.github.bankaccountmanager.utilities.Time;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-/** this responsibility of this class is to format the current time in the format HH:mm:ss. */
+package it.github.bankaccountmanager.user;
 
 /**
  * @autor Giuseppe Calabrese
- * @lastModified 25-01-2024 - implementation methods.
  */
 
-public class SimpleDateFormatImpl implements DateFormat {
-
-
-  /**
-   * Returns the current time in the format HH:mm:ss.
-   *
-   * @return the current time.
-   */
-  @Override
-  public String getCurrentTime() {
-    LocalTime CurrentTime = LocalTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    return CurrentTime.format(formatter);
-  }
-
-
-  /**
-   * Returns the current date in the format dd/MM/yyyy.
-   *
-   * @return the current date.
-   */
-  @Override
-  public String getCurrentDate() {
-    Date currentdate = new Date();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    return dateFormat.format(currentdate);
-
-  }
+/**
+ * @param pin the pin to be stored.
+ */
+public record Pin(int pin) {
 }
