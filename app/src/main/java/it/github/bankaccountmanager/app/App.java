@@ -156,7 +156,7 @@ public class App {
   public static void getPin(Scanner keyboard) {
     while(true) {
       for(int i = 0; i < numclienti.length; i++) {
-        if(pinInserito == numCarte[i].getPin()) {
+        if(pinInserito == numCarte[i].pin()) {
           System.out.println();
           System.out.println(Colors.GREEN + "Accesso effettuato!" + Colors.RESET);
           System.out.println("Benvenuto! " + numclienti[i].getNome() + " " + numclienti[i].getCognome());

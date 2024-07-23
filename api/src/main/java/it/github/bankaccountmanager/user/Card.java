@@ -29,27 +29,17 @@ package it.github.bankaccountmanager.user;
  * @lastModified 25-01-2024 - Code fixing.
  */
 
+import static it.github.bankaccountmanager.user.IbanValidationImpl.validateIBAN;
+
 /** this class is responsible for creating a card with a pin and an IBAN code. */
 
-public class Card {
+public record Card(int pin, String IBAN) {
 
-  /**
-   * @param pin the pin code of the card
-   * @param IBAN the IBAN code of the card
-   * @throws Exception if lenght of IBAN is not 27
-   *
-   * The IBAN code of the card. Must be a string of 27 alphanumeric characters.
-   */
-  private final String IBAN;
-  private final Pin pin;
-
-  public Card(int pinCarta, String IBAN) throws InvalidIBANException {
-    new IbanValidationImpl().validateIBAN(IBAN);
+  public Card(int pin, String IBAN) {
+    validateIBAN(IBAN);
     this.IBAN = IBAN;
-    this.pin = new Pin(pinCarta);
+    this.pin = pin;
   }
-
-  public int getPin() { return pin.pin(); }
 
 }
 

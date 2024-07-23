@@ -28,7 +28,7 @@ package it.github.bankaccountmanager.user;
  * @autor Giuseppe Calabrese
  */
 
-public class InvalidIBANException extends Exception{
+public class InvalidIBANException extends RuntimeException{
 
   /**
    * @param message the message to be displayed when the exception is thrown.

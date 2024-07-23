@@ -24,9 +24,9 @@
 
 package it.github.bankaccountmanager.user;
 
-public class IbanValidationImpl implements IBANValidator{
-  @Override
-  public void validateIBAN(String IBAN) throws InvalidIBANException {
+public final class IbanValidationImpl {
+
+  public static void validateIBAN(String IBAN) throws InvalidIBANException {
     if (IBAN.length() != 27) {
       throw new InvalidIBANException("IBAN code must be 27 characters long.");
     }
