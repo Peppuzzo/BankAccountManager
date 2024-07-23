@@ -9,9 +9,11 @@ plugins {
 dependencies {
     implementation("org.apache.commons:commons-text")
     implementation(project(":utilities"))
+    implementation(project(":api"))
+    implementation(project(":list"))
 }
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.app.App"
+    mainClass = "it.github.bankaccountmanager.app.App"
 }

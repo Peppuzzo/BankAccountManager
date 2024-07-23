@@ -12,3 +12,4 @@ plugins {
 
 rootProject.name = "it.github.bankaccountmanager"
 include("app", "list", "utilities")
+include("api")

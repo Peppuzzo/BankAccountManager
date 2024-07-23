@@ -8,4 +8,5 @@ plugins {
 
 dependencies {
     api(project(":list"))
+    api(project(":api"))
 }
