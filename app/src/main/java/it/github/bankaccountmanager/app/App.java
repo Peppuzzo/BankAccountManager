@@ -81,12 +81,20 @@ public class App {
 
       System.out.print(Colors.YELLOW + "Pin: " + Colors.RESET);
 
-      pinInserito = keyboard.nextInt();
+      int ciao = 0;
+
+      while(true){
+        ciao = keyboard.nextInt();
+        break;
+      }
+
+
+
+
       getPin(keyboard);
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
-
     }
   }
 

@@ -34,8 +34,8 @@ package it.github.bankaccountmanager.user;
 public class Card {
 
   /**
-   * @param pin il codice pin della carta
-   * @param IBAN il codice IBAN della carta
+   * @param pin the pin code of the card
+   * @param IBAN the IBAN code of the card
    * @throws Exception if lenght of IBAN is not 27
    *
    * The IBAN code of the card. Must be a string of 27 alphanumeric characters.
@@ -44,7 +44,7 @@ public class Card {
   private final Pin pin;
 
   public Card(int pinCarta, String IBAN) throws InvalidIBANException {
-    new IbanValidation().validateIBAN(IBAN);
+    new IbanValidationImpl().validateIBAN(IBAN);
     this.IBAN = IBAN;
     this.pin = new Pin(pinCarta);
   }
