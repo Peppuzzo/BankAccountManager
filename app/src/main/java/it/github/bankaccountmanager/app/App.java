@@ -26,13 +26,18 @@ package it.github.bankaccountmanager.app;
 
 import it.github.bankaccountmanager.user.Card;
 import it.github.bankaccountmanager.user.Client;
+import it.github.bankaccountmanager.bank.BankAccount;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
       Client primo = new Client("Giuseppe", "Calabrese", 'M', 2000, new Card(1234, "IT60X0542811101000000123456"));
 
+      BankAccount primoAccount = new BankAccount(1000, primo, 10000);
+
       System.out.println("Name: " + primo.getNome());
+
+      System.out.println("Current balance: " + primoAccount.get_saldo());
 
     }
 }
