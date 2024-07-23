@@ -27,11 +27,9 @@ package it.github.bankaccountmanager.app;
 import it.github.bankaccountmanager.user.Card;
 import it.github.bankaccountmanager.user.Client;
 import it.github.bankaccountmanager.bank.BankAccount;
-import org.example.utilities.Colors;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import it.github.bankaccountmanager.utilities.Style.Colors;
+import it.github.bankaccountmanager.utilities.Time.DateFormat;
+import it.github.bankaccountmanager.utilities.Time.SimpleDateFormatImpl;
 import java.util.Scanner;
 
 public class App {
@@ -41,12 +39,11 @@ public class App {
   static BankAccount[] numConto = new BankAccount[150];
   static Card[] numCarte = new Card[372];
 
-  // introdurre arrayList per avere clienti e conto correnti dinamici
-  // memorizzare i dati angrafici dei clienti oppure conto correnti in un file testo
 
   public static void main(String[] args) {
 
     Scanner keyboard = new Scanner(System.in);
+
     Formatdate();
 
     try {
@@ -89,7 +86,6 @@ public class App {
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
-      //main(args);
 
     }
   }
@@ -126,6 +122,27 @@ public class App {
     System.out.println("Quale altra operazione vuoi effettuare?");
     System.out.println();
   }
+
+  public static void Formatdate() {
+
+    System.out.println("Good morning, welcome to the UniBanca banking system!");
+
+    DateFormat dateFormat = new SimpleDateFormatImpl();
+
+    String TimeFormatted = dateFormat.getCurrentTime();
+    System.out.println("Current Time: " + TimeFormatted);
+
+    String FormattedDate = dateFormat.getCurrentDate();
+    System.out.println("Current Date: " + FormattedDate);
+  }
+
+
+
+
+
+  /*
+
+
   public static void Formatdate() {
     System.out.println("Buongiorno, benvenuto nel sistema bancario UniBanca!");
 
@@ -151,6 +168,13 @@ public class App {
     // Stampala
     System.out.println("Data corrente: " + formattedDate);
   }
+*/
+
+
+
+
+
+
   public static int dateAnagrafe(int indice) {
     System.out.println("Nome: " + numclienti[indice].getNome());
     System.out.println("Cognome: " + numclienti[indice].getCognome());

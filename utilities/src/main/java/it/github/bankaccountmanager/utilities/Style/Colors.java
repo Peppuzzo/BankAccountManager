@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.example.utilities;
+package it.github.bankaccountmanager.utilities.Style;
 
 /**
  *  @autor Giuseppe Calabrese
