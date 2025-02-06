@@ -17,3 +17,7 @@ application {
     // Define the main class for the application.
     mainClass = "it.github.bankaccountmanager.app.App"
 }
+
+tasks.getByName("run", JavaExec::class){
+  standardInput = System.`in`
+}

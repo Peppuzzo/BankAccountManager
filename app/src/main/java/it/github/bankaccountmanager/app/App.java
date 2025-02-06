@@ -140,4 +140,3 @@ public class App {
     return keyboard.next().equalsIgnoreCase("si");
   }
 }
-
