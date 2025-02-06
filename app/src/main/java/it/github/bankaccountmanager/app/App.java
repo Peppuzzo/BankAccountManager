@@ -24,404 +24,120 @@
 
 package it.github.bankaccountmanager.app;
 
+
+import it.github.bankaccountmanager.bank.BankAccount;
 import it.github.bankaccountmanager.user.Card;
 import it.github.bankaccountmanager.user.Client;
-import it.github.bankaccountmanager.bank.BankAccount;
 import it.github.bankaccountmanager.utilities.Style.Colors;
 import it.github.bankaccountmanager.utilities.Time.DateFormat;
 import it.github.bankaccountmanager.utilities.Time.SimpleDateFormatImpl;
+
 import java.util.Scanner;
 
 public class App {
-  static int pinInserito;
-  static int tentativi = 3;
-  static Client[] numclienti = new Client[150];
-  static BankAccount[] numConto = new BankAccount[150];
-  static Card[] numCarte = new Card[372];
+  private static final int MAX_CLIENTI = 150;
+  private static final int MAX_CARTE = 372;
+  private static Client[] clienti = new Client[MAX_CLIENTI];
+  private static BankAccount[] conti = new BankAccount[MAX_CLIENTI];
+  private static Card[] carte = new Card[MAX_CARTE];
+  private static int tentativi = 3;
 
-
-  public static void main(String[] args) {
-
+  public static void main(String[] args) throws Exception {
     Scanner keyboard = new Scanner(System.in);
-
-    FormatDate();
-
-    try {
-
-      // definisco le carte associate ai clienti
-
-      numCarte[0] = new Card(270800, "ITDHB47329N2BG6HSU2D8803MN4");
-      numCarte[1] = new Card(210195, "IT372GSVXNZHEIv83nv903OEW22");
-      numCarte[2] = new Card(110145, "IT873HDBC63D39D4N30940LZMXH");
-      numCarte[3] = new Card(180773, "ITUWB327X9GXNVKDOG830VMS5W2");
-      numCarte[4] = new Card(134256, "HD729DBNC6292BDJ293BGF4DI29");
-      numCarte[5] = new Card(438761, "IT8328FJ4NV9IABXNMCLOEP3IVN");
-
-      // definisco i clienti
-
-      numclienti[0] = new Client("Giuseppe", "Calabrese", 'M', 2000, numCarte[0]);
-      numclienti[1] = new Client("Valentina", "Fede", 'F', 1995, numCarte[1]);
-      numclienti[2] = new Client("Gabriele", "Rossi", 'M', 2000, numCarte[2]);
-      numclienti[3] = new Client("Vincenza", "Pisciotta", 'F', 1973, numCarte[3]);
-      numclienti[4] = new Client("Gabriele", "Calabrese", 'M', 2006, numCarte[4]);
-      numclienti[5] = new Client("Nicholas", "Fiorani", 'M', 2003, numCarte[5]);
-
-      // definisco i conto correnti associati ai clienti
-
-      numConto[0] =  new BankAccount(500, numclienti[0], 1092.54);
-      numConto[1] =  new BankAccount(762, numclienti[1], 5000);
-      numConto[2] =  new BankAccount(950, numclienti[2], 1479.21);
-      numConto[3] =  new BankAccount(400, numclienti[3], 450.23);
-      numConto[4] =  new BankAccount(5000, numclienti[4], 10.456);
-      numConto[5] =  new BankAccount(5000, numclienti[5], 10.456);
-      //numConto[6] = new ContoCorrente(-150, numclienti[6], 2451.56);
-
-
-      // setto il colore per la visualizzazione del pin
-
-      System.out.print(Colors.YELLOW + "Pin: " + Colors.RESET);
-
-      int ciao = 0;
-
-      while(true){
-        ciao = keyboard.nextInt();
-        break;
-      }
-
-
-
-
-      getPin(keyboard);
-
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    mostraBenvenuto();
+    setupClientiEConti();
+    verificaAccesso(keyboard);
   }
 
-  public static void ristampaMenu() {
-    System.out.println();
-    System.out.println("Premere 1 per visualizzare il conto.");
-    System.out.println("Premere 2 per depositare contanti.");
-    System.out.println("Premere 3 per prelevare contanti.");
-    System.out.println("Premere 4 per visualizzare il saldo più alto registrato");
-    System.out.println("Premere 5 per visualizzare i propri dati anagrafici.");
-    System.out.println("Premere 0 per terminare la procedura");
-  }
-
-  public static boolean saluto() {
-    Scanner keyboard = new Scanner(System.in);
-    System.out.println();
-    System.out.println("Arrivederci!");
-    boolean bye = false;
-    keyboard.close();
-    return bye;
-  }
-  public static int altreOperazioni(int output) {
-    // utilizzata per sopprimere un warning specifico generato dal compilatore
-    //riguardo alla mancata chiusura di risorse
-    @SuppressWarnings("resource")
-    Scanner keyboard = new Scanner(System.in);
-    System.out.println();
-    System.out.println("Digita un numero compreso tra 0 e 4");
-    output = keyboard.nextInt();
-    return output;
-  }
-  public static void rispostaPositive() {
-    System.out.println();
-    System.out.println("Quale altra operazione vuoi effettuare?");
-    System.out.println();
-  }
-
-  public static void FormatDate() {
-
+  private static void mostraBenvenuto() {
     System.out.println("Good morning, welcome to the UniBanca banking system!");
-
     DateFormat dateFormat = new SimpleDateFormatImpl();
-
-    String TimeFormatted = dateFormat.getCurrentTime();
-    System.out.println("Current Time: " + TimeFormatted);
-
-    String FormattedDate = dateFormat.getCurrentDate();
-    System.out.println("Current Date: " + FormattedDate);
+    System.out.println("Current Time: " + dateFormat.getCurrentTime());
+    System.out.println("Current Date: " + dateFormat.getCurrentDate());
   }
 
-  public static int dateAnagrafe(int indice) {
-    System.out.println("Nome: " + numclienti[indice].getNome());
-    System.out.println("Cognome: " + numclienti[indice].getCognome());
-    System.out.println("Sesso: " + numclienti[indice].getSesso());
-    System.out.println("Data: " + numclienti[indice].getData());
-    return indice;
+  private static void setupClientiEConti() throws Exception {
+    carte[0] = new Card(270800, "ITDHB47329N2BG6HSU2D8803MN4");
+    clienti[0] = new Client("Giuseppe", "Calabrese", 'M', 2000, carte[0]);
+    conti[0] = new BankAccount(500, clienti[0], 1092.54);
+    carte[1] = new Card(1234, "ITDHB47329N2BG6HSU2D8803MN4");
+    clienti[1] = new Client("Rodolfo", "Lavandino", 'M', 2000, carte[1]);
+    conti[1] = new BankAccount(500, clienti[1], 1092.54);
+    // Aggiungere altri clienti, carte e conti...
   }
 
-  public static void getPin(Scanner keyboard) {
-    while(true) {
-      for(int i = 0; i < numclienti.length; i++) {
-        if(pinInserito == numCarte[i].pin()) {
-          System.out.println();
-          System.out.println(Colors.GREEN + "Accesso effettuato!" + Colors.RESET);
-          System.out.println("Benvenuto! " + numclienti[i].getNome() + " " + numclienti[i].getCognome());
+  private static void verificaAccesso(Scanner keyboard) {
+    System.out.print(Colors.YELLOW + "Inserisci il PIN: " + Colors.RESET);
+    int pinInserito = keyboard.nextInt();
 
-          ristampaMenu();
-
-          int input = keyboard.nextInt();
-
-          boolean flag = true;   // vera fino a quando viene richiesta un'operazione
-          String risposta = "";  // catturo la risposta dell'utente
-
-          do {
-
-            switch (input) {
-
-              case 0:
-                System.out.println();
-                System.out.println("Grazie per essere stato con noi!");
-                System.out.println("A presto!");
-                flag = false;
-                break;
-
-              case 1:
-                System.out.println();
-                System.out.println("Saldo corrente: " + numConto[i].get_saldo() + " €");
-                System.out.println();
-                System.out.println("Desideri effettuare altre operazioni?");
-                risposta = keyboard.next();
-                if(risposta.equals("no")) {
-                  saluto();
-                  return;
-                }
-
-                else {
-                  risposta.equals("si");
-                  rispostaPositive();
-                  System.out.println("Se vuoi visualizare di nuovo il menu digita 'ristampa', altrimenti digita 'operazioni'");
-                  risposta = keyboard.next();
-                  if(risposta.equals("ristampa")) {
-                    ristampaMenu();
-
-                    System.out.println();
-                    System.out.println();
-                    System.out.println("Desideri effettuare altre operazioni?");
-                    risposta = keyboard.next();
-                    if(risposta.equals("no")) {
-                      saluto();
-                      return;
-                    }
-                    else {
-                      risposta.equals("si");
-                      rispostaPositive();
-                      input = keyboard.nextInt();
-
-                    }
-
-                  }
-                  else if (risposta.equals("operazioni")){
-                    input = altreOperazioni(input);
-                  }
-
-                }
-                break;
-
-              case 2:
-                System.out.println();
-                System.out.println("Quanto desideri depositare?");
-                int depositoCredito = keyboard.nextInt();
-                System.out.println();
-                System.out.println("Deposito credito: " + numConto[i].set_deposita(depositoCredito) + " €");
-                System.out.println("Saldo corrente: " + numConto[i].depositoTOT() + " €");
-                System.out.println();
-                System.out.println("Desideri effettuare altre operazioni?");
-                risposta = keyboard.next();
-                if(risposta.equals("no")) {
-                  saluto();
-                  return;
-                }
-                else {
-                  risposta.equals("si");
-                  rispostaPositive();
-                  System.out.println("Se vuoi visualizare di nuovo il menu digita 'ristampa', altrimenti digita 'operazioni'");
-                  risposta = keyboard.next();
-                  if(risposta.equals("ristampa")) {
-                    ristampaMenu();
-
-                    System.out.println();
-                    System.out.println();
-                    System.out.println("Desideri effettuare altre operazioni?");
-                    risposta = keyboard.next();
-                    if(risposta.equals("no")) {
-                      saluto();
-                      return;
-                    }
-                    else {
-                      risposta.equals("si");
-                      rispostaPositive();
-                      input = keyboard.nextInt();
-
-                    }
-
-                  }
-                  else if (risposta.equals("operazioni")){
-                    input = altreOperazioni(input);
-                  }
-                }
-
-                break;
-
-              case 3:
-                System.out.println();
-                System.out.println("Quanto desideri prelevare?");
-                int prelievoCredito = keyboard.nextInt();
-                System.out.println();
-                System.out.println("Prelievo di: " + numConto[i].set_prelievo(prelievoCredito) + " €");
-                System.out.println("Saldo contabile: " + numConto[i].prelievo_Aggiornato() + " €");
-                System.out.println();
-                System.out.println("Desideri effettuare altre operazioni?");
-                risposta = keyboard.next();
-                if(risposta.equals("no")) {
-                  saluto();
-                  return;
-                }
-                else {
-                  risposta.equals("si");
-                  rispostaPositive();
-                  System.out.println("Se vuoi visualizare di nuovo il menu digita 'ristampa', altrimenti digita 'operazioni'");
-                  risposta = keyboard.next();
-                  if(risposta.equals("ristampa")) {
-                    ristampaMenu();
-
-                    System.out.println();
-                    System.out.println();
-                    System.out.println("Desideri effettuare altre operazioni?");
-                    risposta = keyboard.next();
-                    if(risposta.equals("no")) {
-                      saluto();
-                      return;
-                    }
-                    else {
-                      risposta.equals("si");
-                      rispostaPositive();
-                      input = keyboard.nextInt();
-
-                    }
-
-                  }
-                  else if (risposta.equals("operazioni")){
-                    input = altreOperazioni(input);
-                  }
-                }
-                break;
-
-              case 4:
-                System.out.println();
-                System.out.println("Saldo più alto: " + numConto[i].get_saldo_massimo() + " €");
-                System.out.println();
-                System.out.println("Desideri effettuare altre operazioni?");
-                risposta = keyboard.next();
-                if(risposta.equals("no")) {
-                  saluto();
-                  return;
-                }
-                else {
-                  risposta.equals("si");
-                  rispostaPositive();
-                  System.out.println("Se vuoi visualizare di nuovo il menu digita 'ristampa', altrimenti digita 'operazioni'");
-                  risposta = keyboard.next();
-                  if(risposta.equals("ristampa")) {
-                    ristampaMenu();
-
-                    System.out.println();
-                    System.out.println();
-                    System.out.println("Desideri effettuare altre operazioni?");
-                    risposta = keyboard.next();
-                    if(risposta.equals("no")) {
-                      saluto();
-                      return;
-                    }
-                    else {
-                      risposta.equals("si");
-                      rispostaPositive();
-                      input = keyboard.nextInt();
-
-                    }
-
-                  }
-                  else if (risposta.equals("operazioni")){
-                    input = altreOperazioni(input);
-                  }
-                }
-                break;
-
-              case 5:
-                System.out.println();
-                dateAnagrafe(i);
-                System.out.println();
-                System.out.println("Desideri effettuare altre operazioni?");
-                risposta = keyboard.next();
-                if(risposta.equals("no")) {
-                  saluto();
-                  return;
-                }
-                else {
-                  risposta.equals("si");
-                  rispostaPositive();
-                  System.out.println("Se vuoi visualizare di nuovo il menu digita 'ristampa', altrimenti"
-                    + "digiita  'operazioni'");
-                  risposta = keyboard.next();
-                  if(risposta.equals("ristampa")) {
-                    ristampaMenu();
-
-                    System.out.println();
-                    System.out.println();
-                    System.out.println("Desideri effettuare altre operazioni?");
-                    risposta = keyboard.next();
-                    if(risposta.equals("no")) {
-                      saluto();
-                      return;
-                    }
-                    else {
-                      risposta.equals("si");
-                      rispostaPositive();
-                      input = keyboard.nextInt();
-
-                    }
-
-                  }
-                  else if (risposta.equals("operazioni")){
-                    input = altreOperazioni(input);
-                  }
-                }
-                break;
-
-              default:
-                System.out.println();
-                System.out.println("Operazione non andata a buon fine.");
-                System.out.println("Digitare un numero compreso tra 0 e 5.");
-                input = keyboard.nextInt();
-                if(input == 0) {
-                  System.out.println("Arrivederci!");
-                  flag = false;
-                }
-
-            }
-
-          } while(flag);
-
-          if(input == 0) return;
-        }
-        else {
-          System.out.println();
-          if(tentativi == 0) {
-            System.out.println();
-            // Colors
-            System.out.println(Colors.RED_BRIGHT + "Tentativi falliti!" + "\n" + "contattare il sistema"
-              + "bancario per "
-              + "delucidazioni" + Colors.RESET);
-            return;
-          }
-          System.out.println("Inserire nuovamente il pin." + "\n" + "Tentativi rimasti: " + tentativi--);
-          pinInserito = keyboard.nextInt();
-        }
+    for (int i = 0; i < clienti.length; i++) {
+      if (clienti[i] != null && carte[i].pin() == pinInserito) {
+        System.out.println(Colors.GREEN + "Accesso effettuato!" + Colors.RESET);
+        System.out.println("Benvenuto " + clienti[i].getNome() + " " + clienti[i].getCognome());
+        gestisciOperazione(keyboard, i);
+        return;
       }
+    }
+    System.out.println(Colors.RED_BRIGHT + "PIN errato. Tentativi rimasti: " + --tentativi + Colors.RESET);
+    if (tentativi > 0) {
+      verificaAccesso(keyboard);
+    } else {
+      System.out.println("Blocco account. Contattare la banca.");
     }
   }
 
+  private static void mostraMenu() {
+    System.out.println("1. Visualizza il conto");
+    System.out.println("2. Deposita contanti");
+    System.out.println("3. Preleva contanti");
+    System.out.println("4. Saldo massimo registrato");
+    System.out.println("5. Dati anagrafici");
+    System.out.println("0. Esci");
+  }
+
+  private static void gestisciOperazione(Scanner keyboard, int indice) {
+    boolean attivo = true;
+    while (attivo) {
+      mostraMenu();
+      int scelta = keyboard.nextInt();
+      switch (scelta) {
+        case 0 -> attivo = false;
+        case 1 -> System.out.println("Saldo: " + conti[indice].get_saldo() + " €");
+        case 2 -> processaDeposito(keyboard, indice);
+        case 3 -> processaPrelievo(keyboard, indice);
+        case 4 -> System.out.println("Saldo massimo: " + conti[indice].get_saldo_massimo() + " €");
+        case 5 -> mostraDatiAnagrafici(indice);
+        default -> System.out.println("Scelta non valida.");
+      }
+      if (scelta != 0) attivo = chiediConferma(keyboard);
+    }
+    System.out.println("Grazie per aver usato UniBanca. Arrivederci!");
+  }
+
+  private static void processaDeposito(Scanner keyboard, int indice) {
+    System.out.println("Quanto desideri depositare?");
+    int deposito = keyboard.nextInt();
+    conti[indice].set_deposita(deposito);
+    System.out.println("Nuovo saldo: " + conti[indice].get_saldo() + " €");
+  }
+
+  private static void processaPrelievo(Scanner keyboard, int indice) {
+    System.out.println("Quanto desideri prelevare?");
+    int prelievo = keyboard.nextInt();
+    conti[indice].set_prelievo(prelievo);
+    System.out.println("Nuovo saldo: " + conti[indice].get_saldo() + " €");
+  }
+
+  private static void mostraDatiAnagrafici(int indice) {
+    System.out.println("Nome: " + clienti[indice].getNome());
+    System.out.println("Cognome: " + clienti[indice].getCognome());
+    System.out.println("Sesso: " + clienti[indice].getSesso());
+    System.out.println("Anno di nascita: " + clienti[indice].getData());
+  }
+
+  private static boolean chiediConferma(Scanner keyboard) {
+    System.out.println("Vuoi effettuare altre operazioni? (si/no)");
+    return keyboard.next().equalsIgnoreCase("si");
+  }
 }
+
