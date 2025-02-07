@@ -28,6 +28,8 @@
 
 package it.github.bankaccountmanager.user;
 
+import java.util.Objects;
+
 public class Client {
 
   /**
@@ -40,53 +42,33 @@ public class Client {
   private String nome;
   private String cognome;
   private char sesso;
-  private final int annoDiNascita;
+  private int annoDiNascita;
 
   public Client(String nome, String cognome, char sesso, int annoDiNascita, Card carta) throws Exception{
-    if(nome == "") {
-      System.out.println();
-      throw new Exception("Impossibile memorizzare Clienti con nomi vuoti!");
-    }
-    else if(nome.length() <= 1) {
-      System.out.println();
-      throw new Exception("Impossibile memorizzare Clienti con nomi corti di 1 carattere!");
+    if(Objects.equals(nome, "") || nome.length() <= 1 || cognome.length() <= 1
+      || sesso != 'M' && sesso != 'F' || !(annoDiNascita >= 1930 && annoDiNascita <= 2005)) {
+      throw new Exception("Impossibile inizializzare campi per il client!");
     }
     this.nome = nome;
-    if(cognome == "") {
-      System.out.println();
-      throw new Exception("Impossibile creare Clienti con cognomi vuoti!");
-    }
-    else if(cognome.length() <= 1) {
-      System.out.println();
-      throw new Exception("Impossibile memorizzare Clienti con cognomi corti di 1 carattere!");
-    }
     this.cognome = cognome;
-    if(sesso == '\0') { /* '\0' campo vuoto di tipo char */
-      System.out.println();
-      throw new Exception("Il campo sesso non può essere privo di alcun valore!");
-    }
-    else if(sesso != 'M' && sesso != 'F') {
-      System.out.println();
-      throw new Exception("Impossibile impostare il sesso diverso da M o F");
-    }
     this.sesso = sesso;
-    if(annoDiNascita <= 18) {
-      System.out.println();
-      throw new Exception("Impossibile impostare una data di nascita minore di 18!");
-    }
-    else if(annoDiNascita < 1909) {
-      System.out.println();
-      throw new Exception("Impossiible impostare una data di nascita minore di 1909!");
-    }
     this.annoDiNascita = annoDiNascita;
   }
 
-  public String getNome(){return nome;}
+  public String getNome() {
+    return nome;
+  }
 
-  public String getCognome() {return cognome;}
+  public String getCognome() {
+    return cognome;
+  }
 
-  public char getSesso() {return sesso;}
+  public char getSesso() {
+    return sesso;
+  }
 
-  public int getData() {return annoDiNascita;}
+  public int getData() {
+    return annoDiNascita;
+  }
 
 }

@@ -24,7 +24,6 @@
 
 package it.github.bankaccountmanager.app;
 
-
 import it.github.bankaccountmanager.bank.BankAccount;
 import it.github.bankaccountmanager.user.Card;
 import it.github.bankaccountmanager.user.Client;
