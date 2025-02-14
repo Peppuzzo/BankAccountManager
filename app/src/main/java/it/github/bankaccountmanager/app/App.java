@@ -59,7 +59,7 @@ public class App {
     carte[0] = new Card(270800, "ITDHB47329N2BG6HSU2D8803MN4");
     clienti[0] = new Client("Giuseppe", "Calabrese", 'M', 2000, carte[0]);
     conti[0] = new BankAccount(500, clienti[0], 1092.54);
-    carte[1] = new Card(1234, "ITDHB47329N2BG6HSU2D8803MN4");
+    carte[1] = new Card(123456, "ITDHB47329N2BG6HSU2D8803MN4");
     clienti[1] = new Client("Rodolfo", "Lavandino", 'M', 2000, carte[1]);
     conti[1] = new BankAccount(500, clienti[1], 1092.54);
     // Aggiungere altri clienti, carte e conti...
@@ -90,7 +90,7 @@ public class App {
     System.out.println("2. Deposita contanti");
     System.out.println("3. Preleva contanti");
     System.out.println("4. Saldo massimo registrato");
-    System.out.println("5. Dati anagrafici");
+    System.out.println("5. Informazioni Personali");
     System.out.println("0. Esci");
   }
 
@@ -105,7 +105,7 @@ public class App {
         case 2 -> processaDeposito(keyboard, indice);
         case 3 -> processaPrelievo(keyboard, indice);
         case 4 -> System.out.println("Saldo massimo: " + conti[indice].get_saldo_massimo() + " €");
-        case 5 -> mostraDatiAnagrafici(indice);
+        case 5 -> mostraDatiClient(indice);
         default -> System.out.println("Scelta non valida.");
       }
       if (scelta != 0) attivo = chiediConferma(keyboard);
@@ -127,11 +127,12 @@ public class App {
     System.out.println("Nuovo saldo: " + conti[indice].get_saldo() + " €");
   }
 
-  private static void mostraDatiAnagrafici(int indice) {
+  private static void mostraDatiClient(int indice) {
     System.out.println("Nome: " + clienti[indice].getNome());
     System.out.println("Cognome: " + clienti[indice].getCognome());
     System.out.println("Sesso: " + clienti[indice].getSesso());
     System.out.println("Anno di nascita: " + clienti[indice].getData());
+    System.out.println("carta associata: " + clienti[indice].getCard());
   }
 
   private static boolean chiediConferma(Scanner keyboard) {

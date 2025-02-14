@@ -22,53 +22,78 @@
  * SOFTWARE.
  */
 
+package it.github.bankaccountmanager.user;
+
 /**
+ * Questa classe ha lo scopo principale di gestire i dati del client.
+ *
  * @author Giuseppe Calabrese
  */
 
-package it.github.bankaccountmanager.user;
-
-import java.util.Objects;
-
 public class Client {
 
-  /**
-   * @param nome il nome del cliente
-   * @param cognome il cognome del cliente
-   * @param sesso il sesso del cliente
-   * @param annoDiNascita l'anno di nascita del cliente
-   * @param carta la carta associata al cliente
-   */
-  private String nome;
-  private String cognome;
-  private char sesso;
-  private int annoDiNascita;
+  private final String nome;
+  private final String cognome;
+  private final char sesso;
+  private final int annoDiNascita;
+  private Card carta;
 
-  public Client(String nome, String cognome, char sesso, int annoDiNascita, Card carta) throws Exception{
-    if(Objects.equals(nome, "") || nome.length() <= 1 || cognome.length() <= 1
-      || sesso != 'M' && sesso != 'F' || !(annoDiNascita >= 1930 && annoDiNascita <= 2005)) {
-      throw new Exception("Impossibile inizializzare campi per il client!");
-    }
+  public Client(String nome, String cognome, char sesso, int annoDiNascita, Card carta) throws InvalidClientException{
+    validateFieldsClient(nome, cognome, sesso, annoDiNascita, carta);
     this.nome = nome;
     this.cognome = cognome;
     this.sesso = sesso;
     this.annoDiNascita = annoDiNascita;
+    this.carta = carta;
   }
 
   public String getNome() {
-    return nome;
+    return this.nome;
   }
 
   public String getCognome() {
-    return cognome;
+    return this.cognome;
   }
 
   public char getSesso() {
-    return sesso;
+    return this.sesso;
   }
 
   public int getData() {
-    return annoDiNascita;
+    return this.annoDiNascita;
   }
 
+  public Card getCard(){
+    return this.carta;
+  }
+
+  /**
+   * Questo metodo ha il semplice scopo di verificare l'integrità dei
+   * dati passati al costruttore.
+   *
+   * @param nome del client da convalidare
+   * @param cognome del client da convalidare
+   * @param sesso del client da convalidare
+   * @param annoDiNascita del client da convalidare
+   * @param carta del client da convalidare
+   */
+  public static void validateFieldsClient(String nome, String cognome, char sesso,
+                                          int annoDiNascita, Card carta){
+    if(nome == null || nome.length() < 2){
+      throw new InvalidClientException("Nome del client non valido.");
+    }
+    if(cognome == null || cognome.length() < 2){
+      throw new InvalidClientException("Cognome del client non valido.");
+    }
+    if(sesso != 'M' && sesso != 'F'){
+      throw new InvalidClientException("Digitare" + "'M' " + "o" + "'F' " +
+        "per il sesso corretto.");
+    }
+    if (annoDiNascita < 1930 || annoDiNascita > 2005) {
+      throw new InvalidClientException("L'anno di nascita deve essere tra 1930 e 2005.");
+    }
+    if(carta == null) {
+      throw new InvalidClientException("Impossibile associare la carta al client.");
+    }
+  }
 }

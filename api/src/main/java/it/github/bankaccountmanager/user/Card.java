@@ -24,22 +24,22 @@
 
 package it.github.bankaccountmanager.user;
 
-/**
+/** this class is responsible for creating a card with a pin and an IBAN code.
+ *
  * @author Giuseppe Calabrese
- * @lastModified 25-01-2024 - Code fixing.
  */
-
-import static it.github.bankaccountmanager.user.IbanValidationImpl.validateIBAN;
-
-/** this class is responsible for creating a card with a pin and an IBAN code. */
 
 public record Card(int pin, String IBAN) {
 
   public Card(int pin, String IBAN) {
-    validateIBAN(IBAN);
+    if(IBAN.length() != 27) {
+      throw new IndexOutOfBoundsException("L'IBAN deve contenere esattamente 27 caratteri.");
+    }
+    if(!(pin >= 100000 && pin <= 999999)){
+      throw new IndexOutOfBoundsException("Il pin deve essere di 6 cifre.");
+    }
     this.IBAN = IBAN;
     this.pin = pin;
   }
-
 }
 
