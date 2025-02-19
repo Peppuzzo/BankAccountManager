@@ -45,22 +45,25 @@ public class BankAccount {
    *
    * The initial balance of the account. Must be a positive number.
    */
+
+
+
   public BankAccount(double saldo, Client proprietario, double contoMax) throws Exception {
-    if(saldo >= 0)  this.saldo = saldo;
-    else {
+    if(saldo < 0) {
       System.out.println();
       throw new Exception("It is not possible to create current accounts with a negative balance!" + "\n"
         + "\n" + "Be very careful"  + "\n" + "\n" + "The incorrect balance is as follows: "
         + saldo);
     }
-
-    if (saldomassimo < 0) throw new Exception("Unable to set highest negative balance!");
+    this.saldo = saldo;
     this.saldomassimo = contoMax;
   }
 
   public double get_saldo() { return saldo; }
 
-  public int set_deposita(int deposita) { return this.deposita = deposita; }
+  public void set_deposita(int deposita) {
+    this.deposita = deposita;
+  }
 
   public int depositoTOT() {
     deposita = (int) (deposita + saldo);
@@ -68,7 +71,7 @@ public class BankAccount {
     return deposita;
   }
 
-  public int set_prelievo(int prelievo) { return this.prelievo = prelievo; }
+  public void set_prelievo(int prelievo) { this.prelievo = prelievo; }
 
   public int prelievo_Aggiornato() {
     int sottrazione = (int) saldo - prelievo;
