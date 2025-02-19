@@ -36,7 +36,7 @@ public class Client {
   private final String cognome;
   private final char sesso;
   private final int annoDiNascita;
-  private Card carta;
+  private final Card carta;
 
   public Client(String nome, String cognome, char sesso, int annoDiNascita, Card carta) throws InvalidClientException{
     validateFieldsClient(nome, cognome, sesso, annoDiNascita, carta);
