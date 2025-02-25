@@ -29,10 +29,7 @@ import it.github.bankaccountmanager.user.Card;
 import it.github.bankaccountmanager.user.Client;
 import it.github.bankaccountmanager.utilities.Style.Colors;
 import static it.github.bankaccountmanager.utilities.Time.SetupWelcomeClient.mostraBenvenuto;
-
 import java.util.Scanner;
-
-
 
 public class App {
   private static final int MAX_CLIENTI = 150;
