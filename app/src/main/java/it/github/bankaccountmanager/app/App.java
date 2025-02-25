@@ -28,10 +28,11 @@ import it.github.bankaccountmanager.bank.BankAccount;
 import it.github.bankaccountmanager.user.Card;
 import it.github.bankaccountmanager.user.Client;
 import it.github.bankaccountmanager.utilities.Style.Colors;
-import it.github.bankaccountmanager.utilities.Time.DateFormat;
-import it.github.bankaccountmanager.utilities.Time.SimpleDateFormatImpl;
+import static it.github.bankaccountmanager.utilities.Time.SetupWelcomeClient.mostraBenvenuto;
 
 import java.util.Scanner;
+
+
 
 public class App {
   private static final int MAX_CLIENTI = 150;
@@ -46,13 +47,6 @@ public class App {
     mostraBenvenuto();
     setupClientiEConti();
     verificaAccesso(keyboard);
-  }
-
-  private static void mostraBenvenuto() {
-    System.out.println("Good morning, welcome to the UniBanca banking system!");
-    DateFormat dateFormat = new SimpleDateFormatImpl();
-    System.out.println("Current Time: " + dateFormat.getCurrentTime());
-    System.out.println("Current Date: " + dateFormat.getCurrentDate());
   }
 
   private static void setupClientiEConti() throws Exception {

@@ -61,6 +61,11 @@ public class BankAccount {
 
   public double get_saldo() { return saldo; }
 
+
+  public int get_deposita() {
+    return this.deposita;
+  }
+
   public void set_deposita(int deposita) {
     this.deposita = deposita;
   }
@@ -68,6 +73,7 @@ public class BankAccount {
   public int depositoTOT() {
     deposita = (int) (deposita + saldo);
     saldo = deposita;
+    check_saldo_massimo(get_deposita());
     return deposita;
   }
 
@@ -79,6 +85,12 @@ public class BankAccount {
   }
 
   public double get_saldo_massimo() { return saldomassimo; }
+
+  public void check_saldo_massimo(int deposita){
+    if(get_deposita() > this.saldomassimo){
+      this.saldomassimo = get_deposita();
+    }
+  }
 
 }
 

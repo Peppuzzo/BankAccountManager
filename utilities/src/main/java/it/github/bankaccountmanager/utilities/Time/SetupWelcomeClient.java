@@ -24,23 +24,12 @@
 
 package it.github.bankaccountmanager.utilities.Time;
 
-/**
- * @autor Giuseppe Calabrese
- * @lastModified 25-01-2024 - created method and string for interface.
- */
+public class SetupWelcomeClient {
 
-public interface DateFormat {
-  /**
-   * Returns the current time in the format HH:mm:ss.
-   *
-   * @return the current time.
-   */
-  String getCurrentTime();
-
-  /**
-   * Returns the current Date.
-   *
-   * @return the current date
-   */
-  String getCurrentDate();
+  public static void mostraBenvenuto() {
+    System.out.println("Good morning, welcome to the UniBanca banking system!");
+    DateFormat dateFormat = new SimpleDateFormatImpl();
+    System.out.println("Current Time: " + dateFormat.getCurrentTime());
+    System.out.println("Current Date: " + dateFormat.getCurrentDate());
+  }
 }
