@@ -74,8 +74,7 @@ public class BankAccount {
   public void set_prelievo(int prelievo) { this.prelievo = prelievo; }
 
   public int prelievo_Aggiornato() {
-    int sottrazione = (int) saldo - prelievo;
-    saldo = sottrazione;
+    saldo = (int) saldo - prelievo;
     return (int) saldo;
   }
 

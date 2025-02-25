@@ -117,14 +117,14 @@ public class App {
     System.out.println("Quanto desideri depositare?");
     int deposito = keyboard.nextInt();
     conti[indice].set_deposita(deposito);
-    System.out.println("Nuovo saldo: " + conti[indice].get_saldo() + " €");
+    System.out.println("Nuovo saldo: " + conti[indice].depositoTOT() + " €");
   }
 
   private static void processaPrelievo(Scanner keyboard, int indice) {
     System.out.println("Quanto desideri prelevare?");
     int prelievo = keyboard.nextInt();
     conti[indice].set_prelievo(prelievo);
-    System.out.println("Nuovo saldo: " + conti[indice].get_saldo() + " €");
+    System.out.println("Nuovo saldo: " + conti[indice].prelievo_Aggiornato() + " €");
   }
 
   private static void mostraDatiClient(int indice) {
