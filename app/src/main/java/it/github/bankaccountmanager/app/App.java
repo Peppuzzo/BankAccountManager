@@ -96,7 +96,7 @@ public class App {
         case 2 -> processaDeposito(keyboard, indice);
         case 3 -> processaPrelievo(keyboard, indice);
         case 4 -> System.out.println("Saldo massimo: " + conti[indice].get_saldo_massimo() + " €");
-        case 5 -> mostraDatiClient(indice);
+        case 5 -> System.out.println(clienti[indice].toString());
         default -> System.out.println("Scelta non valida.");
       }
       if (scelta != 0) attivo = chiediConferma(keyboard);
@@ -116,14 +116,6 @@ public class App {
     int prelievo = keyboard.nextInt();
     conti[indice].set_prelievo(prelievo);
     System.out.println("Nuovo saldo: " + conti[indice].prelievo_Aggiornato() + " €");
-  }
-
-  private static void mostraDatiClient(int indice) {
-    System.out.println("Nome: " + clienti[indice].getNome());
-    System.out.println("Cognome: " + clienti[indice].getCognome());
-    System.out.println("Sesso: " + clienti[indice].getSesso());
-    System.out.println("Anno di nascita: " + clienti[indice].getData());
-    System.out.println("carta associata: " + clienti[indice].getCard());
   }
 
   private static boolean chiediConferma(Scanner keyboard) {

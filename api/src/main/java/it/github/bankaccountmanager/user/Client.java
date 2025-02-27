@@ -96,4 +96,12 @@ public class Client {
       throw new InvalidClientException("Impossibile associare la carta al client.");
     }
   }
+
+  @Override
+  public String toString(){
+    return "Nome: " + getNome() + "\n" +
+           "Cognome: " + getCognome() + "\n" +
+           "Sesso: " + getSesso() + "\n" +
+           "Data di Nascita: " + getData();
+  }
 }
