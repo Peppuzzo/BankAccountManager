@@ -48,10 +48,10 @@ public class App {
 
   private static void setupClientiEConti() throws Exception {
     carte[0] = new Card(270800, "ITDHB47329N2BG6HSU2D8803MN4");
-    clienti[0] = new Client("Giuseppe", "Calabrese", 'M', 2000, carte[0]);
+    clienti[0] = new Client("Giuseppe", "Calabrese", 270800, carte[0]);
     conti[0] = new BankAccount(500, clienti[0], 1092.54);
     carte[1] = new Card(123456, "ITDHB47329N2BG6HSU2D8803MN4");
-    clienti[1] = new Client("Rodolfo", "Lavandino", 'M', 2000, carte[1]);
+    clienti[1] = new Client("Rodolfo", "Lavandino",2000, carte[1]);
     conti[1] = new BankAccount(500, clienti[1], 1092.54);
   }
 

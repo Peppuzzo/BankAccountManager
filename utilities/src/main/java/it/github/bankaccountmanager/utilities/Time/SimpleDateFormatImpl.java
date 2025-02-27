@@ -29,7 +29,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-/** this responsibility of this class is to format the current time in the format HH:mm:ss. */
+/* this responsibility of this class is to format the current time in the format HH:mm:ss. */
 
 /**
  * @autor Giuseppe Calabrese
@@ -37,7 +37,6 @@ import java.util.Date;
  */
 
 public class SimpleDateFormatImpl implements DateFormat {
-
 
   /**
    * Returns the current time in the format HH:mm:ss.

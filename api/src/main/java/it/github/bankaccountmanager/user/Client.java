@@ -34,15 +34,24 @@ public class Client {
 
   private final String nome;
   private final String cognome;
-  private final char sesso;
   private final int annoDiNascita;
   private final Card carta;
 
-  public Client(String nome, String cognome, char sesso, int annoDiNascita, Card carta) throws InvalidClientException{
-    validateFieldsClient(nome, cognome, sesso, annoDiNascita, carta);
+  public Client(String nome, String cognome, int annoDiNascita, Card carta) throws InvalidClientException{
+    if(nome == null || nome.length() < 2){
+      throw new InvalidClientException("Nome del client non valido.");
+    }
+    if(cognome == null || cognome.length() < 2){
+      throw new InvalidClientException("Cognome del client non valido.");
+    }
+    if (annoDiNascita < 1930 || annoDiNascita > 2005) {
+      throw new InvalidClientException("L'anno di nascita deve essere tra 1930 e 2005.");
+    }
+    if(carta == null) {
+      throw new InvalidClientException("Impossibile associare la carta al client.");
+    }
     this.nome = nome;
     this.cognome = cognome;
-    this.sesso = sesso;
     this.annoDiNascita = annoDiNascita;
     this.carta = carta;
   }
@@ -55,10 +64,6 @@ public class Client {
     return this.cognome;
   }
 
-  public char getSesso() {
-    return this.sesso;
-  }
-
   public int getData() {
     return this.annoDiNascita;
   }
@@ -67,41 +72,10 @@ public class Client {
     return this.carta;
   }
 
-  /**
-   * Questo metodo ha il semplice scopo di verificare l'integrità dei
-   * dati passati al costruttore.
-   *
-   * @param nome del client da convalidare
-   * @param cognome del client da convalidare
-   * @param sesso del client da convalidare
-   * @param annoDiNascita del client da convalidare
-   * @param carta del client da convalidare
-   */
-  public static void validateFieldsClient(String nome, String cognome, char sesso,
-                                          int annoDiNascita, Card carta){
-    if(nome == null || nome.length() < 2){
-      throw new InvalidClientException("Nome del client non valido.");
-    }
-    if(cognome == null || cognome.length() < 2){
-      throw new InvalidClientException("Cognome del client non valido.");
-    }
-    if(sesso != 'M' && sesso != 'F'){
-      throw new InvalidClientException("Digitare" + "'M' " + "o" + "'F' " +
-        "per il sesso corretto.");
-    }
-    if (annoDiNascita < 1930 || annoDiNascita > 2005) {
-      throw new InvalidClientException("L'anno di nascita deve essere tra 1930 e 2005.");
-    }
-    if(carta == null) {
-      throw new InvalidClientException("Impossibile associare la carta al client.");
-    }
-  }
-
   @Override
   public String toString(){
     return "Nome: " + getNome() + "\n" +
            "Cognome: " + getCognome() + "\n" +
-           "Sesso: " + getSesso() + "\n" +
            "Data di Nascita: " + getData();
   }
 }
