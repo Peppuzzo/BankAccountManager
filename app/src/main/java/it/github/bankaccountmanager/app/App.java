@@ -53,7 +53,6 @@ public class App {
     carte[1] = new Card(123456, "ITDHB47329N2BG6HSU2D8803MN4");
     clienti[1] = new Client("Rodolfo", "Lavandino", 'M', 2000, carte[1]);
     conti[1] = new BankAccount(500, clienti[1], 1092.54);
-    // Aggiungere altri clienti, carte e conti...
   }
 
   private static void verificaAccesso(Scanner keyboard) {
